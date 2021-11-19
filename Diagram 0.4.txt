@@ -1,0 +1,38 @@
+note over browser:
+User fills in the text input (note) and hits submit button
+end note
+
+note over browser:
+Browser applies the default behavior of handling form submit using form tag attributes(method and action)
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_notev (request body holds the note)
+note over server:
+Server saves the note from POST request body
+end note
+server-->browser: HTTP 302 Found (Redirect to /exampleapp/notes)
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+JS script tells the browser to load JSON data (the notes that now have the added note)
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{"content":"asd","date":"2021-11-17T16:50:47.517Z"}, ... ]
+
+note over browser:
+The event is trigger on XMLHttpRequest that kicks in the event handler which renders the received notes on the page
+end note
+
+note over browser:
+Browser requests default icon
+end note
+browser->server: HTTP GET https://studies.cs.helsinki.fi/favicon.ico
+server-->browser: HTML code (looks a bit odd...)
